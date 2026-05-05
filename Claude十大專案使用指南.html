@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude 十大專案使用指南</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e8;
+  --warm-white: #faf8f4;
+  --ink: #1c1917;
+  --ink-light: #44403c;
+  --ink-muted: #78716c;
+  --accent: #c2855a;
+  --accent-light: #e8d5c4;
+  --accent-pale: #f5ede4;
+  --border: #e5ddd4;
+  --border-light: #ede8e0;
+  --serif: 'Noto Serif TC', serif;
+  --sans: 'Noto Sans TC', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--warm-white);
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+/* ── 導覽 ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,248,244,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 2rem;
+  display: flex; align-items: center; height: 56px;
+  gap: 2rem;
+}
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 600;
+  color: var(--ink); white-space: nowrap;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex; gap: 0; overflow-x: auto;
+  scrollbar-width: none; flex: 1;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link {
+  font-size: 12px; color: var(--ink-muted);
+  text-decoration: none; padding: 6px 10px;
+  border-radius: 5px; white-space: nowrap;
+  transition: all 0.15s;
+}
+.nav-link:hover { color: var(--ink); background: var(--accent-pale); }
+
+/* ── Hero ── */
+.hero {
+  padding: 120px 2rem 80px;
+  max-width: 780px; margin: 0 auto;
+  text-align: center;
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  color: var(--accent); text-transform: uppercase;
+  background: var(--accent-pale);
+  border: 1px solid var(--accent-light);
+  padding: 4px 14px; border-radius: 99px; margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 600; line-height: 1.3;
+  color: var(--ink); margin-bottom: 1.25rem;
+}
+.hero-desc {
+  font-size: 16px; color: var(--ink-light);
+  line-height: 1.8; max-width: 560px; margin: 0 auto 2.5rem;
+}
+.hero-divider {
+  width: 40px; height: 1px;
+  background: var(--accent); margin: 0 auto;
+}
+
+/* ── 快速總覽 ── */
+.overview {
+  max-width: 900px; margin: 0 auto;
+  padding: 60px 2rem;
+}
+.section-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+}
+.overview-card {
+  background: var(--warm-white);
+  padding: 1.25rem 1.5rem;
+  display: block;
+}
+.overview-card-num {
+  font-size: 11px; color: var(--accent);
+  font-weight: 600; letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.overview-card-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+.overview-card-title {
+  font-size: 14px; font-weight: 600;
+  color: var(--ink); margin-bottom: 4px;
+}
+.overview-card-desc {
+  font-size: 12px; color: var(--ink-muted); line-height: 1.5;
+}
+
+/* ── 開始使用 ── */
+.getting-started {
+  max-width: 780px; margin: 0 auto;
+  padding: 20px 2rem 60px;
+}
+.gs-title {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 600;
+  color: var(--ink); margin-bottom: 1.5rem;
+}
+.steps-list { display: flex; flex-direction: column; gap: 0; }
+.step-item {
+  display: flex; gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.step-item:last-child { border-bottom: none; }
+.step-num {
+  width: 28px; height: 28px; min-width: 28px;
+  background: var(--ink); color: var(--warm-white);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 600;
+  margin-top: 2px;
+}
+.step-content {}
+.step-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--ink-light); line-height: 1.65; }
+.step-note {
+  margin-top: 8px; font-size: 12px;
+  color: var(--accent); background: var(--accent-pale);
+  border-left: 2px solid var(--accent);
+  padding: 6px 10px; border-radius: 0 5px 5px 0;
+}
+
+/* ── 專案詳細 ── */
+.projects { max-width: 780px; margin: 0 auto; padding: 0 2rem 80px; }
+
+.project-block {
+  margin-bottom: 3rem;
+  border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  background: var(--warm-white);
+}
+
+.project-header {
+  padding: 1.5rem 1.75rem;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.project-icon { font-size: 28px; line-height: 1; margin-top: 2px; }
+.project-header-text {}
+.project-num {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 3px;
+}
+.project-name {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 600; color: var(--ink);
+  margin-bottom: 5px;
+}
+.project-tagline { font-size: 13px; color: var(--ink-light); }
+
+.project-body { padding: 1.5rem 1.75rem; }
+
+.project-section { margin-bottom: 1.5rem; }
+.project-section:last-child { margin-bottom: 0; }
+.project-section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--ink-muted); text-transform: uppercase;
+  margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-light);
+}
+.project-section p {
+  font-size: 14px; color: var(--ink-light); line-height: 1.75;
+}
+
+.usage-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.usage-list li {
+  font-size: 13px; color: var(--ink-light);
+  padding: 8px 12px;
+  background: var(--cream); border-radius: 7px;
+  line-height: 1.55;
+}
+.usage-list li::before { content: '→　'; color: var(--accent); font-weight: 600; }
+
+.steps-mini { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 8px; }
+.steps-mini li {
+  counter-increment: step;
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; color: var(--ink-light); line-height: 1.6;
+}
+.steps-mini li::before {
+  content: counter(step);
+  min-width: 22px; height: 22px;
+  background: var(--ink); color: var(--warm-white);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 600;
+  margin-top: 1px; flex-shrink: 0;
+}
+
+.tips-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.tips-list li {
+  font-size: 13px; color: var(--ink-light);
+  padding-left: 16px; position: relative; line-height: 1.6;
+}
+.tips-list li::before {
+  content: '✦';
+  position: absolute; left: 0;
+  color: var(--accent); font-size: 10px; top: 4px;
+}
+
+.warn-box {
+  background: #fef9f0; border: 1px solid #f0d9b0;
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 13px; color: #7c5a2a; line-height: 1.6;
+  margin-top: 10px;
+}
+.warn-box::before { content: '⚠️　'; }
+
+.optimize-box {
+  background: var(--accent-pale); border: 1px solid var(--accent-light);
+  border-radius: 8px; padding: 12px 14px;
+  font-size: 13px; color: var(--ink-light); line-height: 1.7;
+  margin-top: 10px;
+}
+.optimize-box strong { color: var(--ink); }
+
+.flow-row {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  margin-top: 8px;
+}
+.flow-tag {
+  font-size: 12px; font-weight: 500;
+  background: var(--ink); color: var(--warm-white);
+  padding: 4px 12px; border-radius: 99px;
+}
+.flow-arrow { color: var(--accent); font-size: 14px; font-weight: 700; }
+
+/* ── 尾端 ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 780px; margin: 0 auto;
+}
+.footer p { font-size: 13px; color: var(--ink-muted); line-height: 1.8; }
+
+/* ── RWD ── */
+@media (max-width: 600px) {
+  .nav-brand { font-size: 13px; }
+  .project-header { flex-direction: column; gap: 0.5rem; }
+  .overview-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Claude 十大專案</span>
+  <div class="nav-links">
+    <span class="nav-link">總覽</span>
+    <span class="nav-link">開始使用</span>
+    <span class="nav-link">文案</span>
+    <span class="nav-link">靈感</span>
+    <span class="nav-link">標題</span>
+    <span class="nav-link">心理測驗</span>
+    <span class="nav-link">新客戶</span>
+    <span class="nav-link">未成交</span>
+    <span class="nav-link">產品設計</span>
+    <span class="nav-link">個案排程</span>
+    <span class="nav-link">心態</span>
+    <span class="nav-link">Reels</span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">IG 變現課程 · 學員專屬</div>
+  <h1>你的 Claude 十大專案<br>完整使用指南</h1>
+  <p class="hero-desc">這十個專案是你的 AI 工作系統。每個專案各司其職，從內容產出到客戶轉換，從產品設計到心態支持，全部幫你準備好了。</p>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- 總覽 -->
+<div class="overview" id="overview">
+  <div class="section-label">十大專案總覽</div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="overview-card-num">專案 01</div>
+      <span class="overview-card-icon">✍️</span>
+      <div class="overview-card-title">文案生產器</div>
+      <div class="overview-card-desc">每一頁輪播圖文的完整文案</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 02</div>
+      <span class="overview-card-icon">💡</span>
+      <div class="overview-card-title">靈感生產器</div>
+      <div class="overview-card-desc">不知道發什麼就來這裡</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 03</div>
+      <span class="overview-card-icon">🎯</span>
+      <div class="overview-card-title">標題生產器</div>
+      <div class="overview-card-desc">排程 7–30 天的發文標題</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 04</div>
+      <span class="overview-card-icon">🧠</span>
+      <div class="overview-card-title">心理測驗產生器</div>
+      <div class="overview-card-desc">高互動測驗 + 留言回覆模板</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 05</div>
+      <span class="overview-card-icon">💬</span>
+      <div class="overview-card-title">新客戶回覆指令</div>
+      <div class="overview-card-desc">從陌生到成交的話術</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 06</div>
+      <span class="overview-card-icon">🔄</span>
+      <div class="overview-card-title">未成交跟進話術</div>
+      <div class="overview-card-desc">體驗諮詢後的跟進策略</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 07</div>
+      <span class="overview-card-icon">💰</span>
+      <div class="overview-card-title">產品設計與定價</div>
+      <div class="overview-card-desc">低單價到高單價的完整產品線</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 08</div>
+      <span class="overview-card-icon">📋</span>
+      <div class="overview-card-title">個案服務排程表</div>
+      <div class="overview-card-desc">高品質陪跑客戶的 SOP</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 09</div>
+      <span class="overview-card-icon">🌱</span>
+      <div class="overview-card-title">心態建立</div>
+      <div class="overview-card-desc">沮喪卡關時的對話夥伴</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-card-num">專案 10</div>
+      <span class="overview-card-icon">🎬</span>
+      <div class="overview-card-title">Reels 腳本規劃</div>
+      <div class="overview-card-desc">零基礎也能產出的影片腳本</div>
+    </div>
+  </div>
+</div>
+
+<!-- 開始使用 -->
+<div class="getting-started" id="start">
+  <div class="section-label">開始之前</div>
+  <div class="gs-title">這套系統怎麼運作？</div>
+  <div class="steps-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">每個專案是獨立的</div>
+        <div class="step-desc">十個專案各司其職，要產出文案就去文案生產器，要回覆客戶就去新客戶回覆指令。不要把所有事情丟在同一個對話框。</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">每個專案都已經認識你</div>
+        <div class="step-desc">老師在設定時已經把你的品牌資料放進每個專案裡，所以 Claude 產出的內容會符合你的風格，不需要每次重新介紹自己。</div>
+        <div class="step-note">如果發現 Claude 產出的語氣或方向不對，告訴老師，可以調整品牌資料。</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">說清楚你要什麼</div>
+        <div class="step-desc">越具體的指令，越好的輸出。不要只說「幫我寫一篇貼文」，要說「幫我寫一篇給感情困境女性的輪播，主題是為什麼努力了還是留不住人」。</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">輸出不滿意，直接說</div>
+        <div class="step-desc">Claude 的第一版不一定是最好的版本。你可以直接說「語氣太商業，重寫」「封面標題換一個更有衝突感的」「第三張太長，壓縮在 60 字以內」。</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <div class="step-title">內容產出三件套的用法</div>
+        <div class="step-desc">這是三個專案連起來的最佳流程：</div>
+        <div class="flow-row">
+          <span class="flow-tag">💡 靈感生產器</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">🎯 標題生產器</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">✍️ 文案生產器</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 十個專案詳細說明 -->
+<div class="projects">
+  <div class="section-label">專案詳細說明</div>
+
+  <!-- 專案一 -->
+  <div class="project-block" id="p1">
+    <div class="project-header">
+      <div class="project-icon">✍️</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 01</div>
+        <div class="project-name">文案生產器</div>
+        <div class="project-tagline">每一頁輪播圖文的完整文案，告訴它主題，它幫你寫好每一張</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>產出完整的輪播圖文文案，包含封面標題、每一張的主文、以及結尾的行動引導。輸出格式已經對齊 IG 輪播的閱讀節奏，每張控制在適合的字數內。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「✍️ 文案生產器」專案</li>
+          <li>告訴它這篇要寫的主題，或是直接說一個你的受眾痛點</li>
+          <li>它會產出完整輪播文案，從封面到 CTA</li>
+          <li>不滿意的地方直接說，它會修改</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">你可以這樣說</div>
+        <ul class="usage-list">
+          <li>「幫我寫一篇給感情困境女性的輪播，主題是為什麼努力了還是留不住人」</li>
+          <li>「這週想發財運主題，幫我寫一篇 6 張輪播」</li>
+          <li>「封面標題換一個更有衝突感的，其他不動」</li>
+          <li>「第三張太長了，壓縮在 60 字以內」</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>不要只說「幫我寫貼文」，要說清楚主題和受眾狀態</li>
+          <li>第一版可能不完美，修改 1–2 次通常就到位了</li>
+          <li>和標題生產器搭配使用效果最好：先排好標題，再來這裡展開文案</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          如果你覺得它產出的語氣不夠像你，可以這樣說：<br>
+          <strong>「我說話比較直接，不要太溫柔，重新寫封面標題」</strong><br>
+          或是給它一個你之前發過覺得很好的貼文當參考：<br>
+          <strong>「參考這篇的語氣來寫：＿＿＿」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案二 -->
+  <div class="project-block" id="p2">
+    <div class="project-header">
+      <div class="project-icon">💡</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 02</div>
+        <div class="project-name">靈感生產器</div>
+        <div class="project-tagline">不知道要發什麼就來這裡，它幫你找方向</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>當你盯著螢幕不知道要發什麼，靈感生產器幫你找出這週可以發的方向。它會根據你的受眾、你的風格、還有當下的時節，給你具體的主題靈感，每個靈感都包含切入角度和封面標題草稿。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「💡 靈感生產器」專案</li>
+          <li>說出你需要什麼類型的靈感，或直接說「給我本週靈感」</li>
+          <li>它給你 5–7 個方向，挑你有感覺的</li>
+          <li>把挑好的主題帶到「🎯 標題生產器」或「✍️ 文案生產器」繼續</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">你可以這樣說</div>
+        <ul class="usage-list">
+          <li>「給我本週靈感」</li>
+          <li>「給我感情類的靈感，五個方向」</li>
+          <li>「我想發財運主題，幫我想切入角度」</li>
+          <li>「我最近在想感情裡的自我價值，這可以發嗎」</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>靈感不等於文案，它給你方向，文案要去文案生產器做</li>
+          <li>不是每個靈感都適合你，挑你有感覺的，才發得出有溫度的內容</li>
+        </ul>
+        <div class="warn-box">如果它給的方向你完全沒感覺，直接說「這些不夠準，我的客群最近在煩的是 OOO，重新給我方向」</div>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          告訴它你上週發了什麼，讓它不要重複：<br>
+          <strong>「上週發了感情能量、財運儀式，這週給我不一樣的方向」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案三 -->
+  <div class="project-block" id="p3">
+    <div class="project-header">
+      <div class="project-icon">🎯</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 03</div>
+        <div class="project-name">標題生產器</div>
+        <div class="project-tagline">排程好接下來 7–30 天的發文標題，內容規劃一次搞定</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>幫你一次排好多天的發文標題，讓你每天不用再想「今天要發什麼」。也可以單篇使用，給你一個主題，它產出 10 個封面標題讓你挑。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「🎯 標題生產器」專案</li>
+          <li>說出你要排幾天或是要單篇標題</li>
+          <li>它產出排程或 10 個標題選項</li>
+          <li>挑好的標題帶到「✍️ 文案生產器」展開文案</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">你可以這樣說</div>
+        <ul class="usage-list">
+          <li>「幫我排接下來 7 天的發文標題」</li>
+          <li>「幫我排這個月 30 天的標題，感情財運職場都要有」</li>
+          <li>「這篇要寫關係裡的自我價值，給我 10 個封面標題」</li>
+          <li>「這個標題感覺不夠吸引人，幫我改三個版本：＿＿＿」</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>標題排好後記得截圖或複製存起來，這個對話視窗關掉就找不回來了</li>
+          <li>排程模式會依照內容節奏分配主題類型，不會 30 天全都是同一種</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          如果你有特定節日或主題要配合，提前說：<br>
+          <strong>「這個月有母親節，幫我安排一篇跟媽媽相關的療癒主題」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案四 -->
+  <div class="project-block" id="p4">
+    <div class="project-header">
+      <div class="project-icon">🧠</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 04</div>
+        <div class="project-name">心理測驗產生器</div>
+        <div class="project-tagline">高互動測驗貼文 + 10 則留言回覆模板，一次全產出</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>產出完整的 IG 心理測驗輪播貼文，包含封面、題目、四個選項的解析頁面，以及 10 則可以直接複製貼上的公開留言回覆模板。心理測驗是互動率最高的內容類型之一，這個專案幫你把整套做完。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「🧠 心理測驗產生器」專案</li>
+          <li>告訴它測驗主題（感情 / 財運 / 職場 / 自我價值）</li>
+          <li>它產出完整測驗：封面、題目、四個選項解析、CTA、留言回覆模板</li>
+          <li>把各選項解析複製到設計軟體製作圖片</li>
+          <li>貼文發出後，用留言回覆模板回應留言</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">你可以這樣說</div>
+        <ul class="usage-list">
+          <li>「幫我做一個感情依附類型的測驗」</li>
+          <li>「設計一個關於財富能量阻礙的心理測驗」</li>
+          <li>「做一個職場人際關係的測驗，四個選項要有明顯差異感」</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>每個選項解析要讓人覺得「被說中」，不要太正面或太負面</li>
+          <li>留言回覆模板要在發文後 1–2 小時內快速回覆，趁互動熱度還在</li>
+        </ul>
+        <div class="warn-box">心理測驗不是在做科學測驗，重點是共鳴感，讓她看完之後想分享給朋友。</div>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          想讓選項更有個性：<br>
+          <strong>「四個選項不要太普通，要有點反差，讓人看到題目就忍不住想測」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案五 -->
+  <div class="project-block" id="p5">
+    <div class="project-header">
+      <div class="project-icon">💬</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 05</div>
+        <div class="project-name">新客戶回覆指令</div>
+        <div class="project-tagline">把客人的訊息貼進來，它告訴你怎麼回</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>從陌生留言到成交，五個階段的對話都幫你準備好。你只要把客人傳來的訊息貼進來，告訴它她現在在哪個階段，它給你兩個版本的回覆，你挑一個貼上去就好。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">五個客戶階段</div>
+        <ul class="usage-list">
+          <li>階段一：陌生留言（第一次互動，還不認識你）</li>
+          <li>階段二：私訊詢問（主動傳訊，有興趣但觀望中）</li>
+          <li>階段三：詢問服務（問價格、內容、流程）</li>
+          <li>階段四：猶豫中（說考慮、說之後、說先看看）</li>
+          <li>階段五：成交前最後一推（她快要答應了）</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「💬 新客戶回覆指令」專案</li>
+          <li>貼上客人傳來的訊息</li>
+          <li>告訴它她現在在哪個階段</li>
+          <li>它給你溫柔版和直接版各一個</li>
+          <li>挑一個複製，貼到 LINE 或 IG 私訊</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>回覆前先確認她在哪個階段，階段判斷錯了，回覆方向就會跑掉</li>
+          <li>它給的回覆是參考，可以加上你自己的語氣再發出去</li>
+        </ul>
+        <div class="warn-box">不要在階段一或二就報價，信任還沒建立，報了她只會消失。</div>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          如果她的訊息很短或很模糊，補充背景讓 Claude 判斷得更準：<br>
+          <strong>「她在我的感情測驗貼文留了 A，然後私訊我說想多了解，目前在階段二，幫我回覆」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案六 -->
+  <div class="project-block" id="p6">
+    <div class="project-header">
+      <div class="project-icon">🔄</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 06</div>
+        <div class="project-name">未成交跟進話術</div>
+        <div class="project-tagline">體驗諮詢後消失的客人，這裡幫你把她找回來</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>幫你設計體驗諮詢後沒有成交的客戶的跟進策略，包含時機判斷、三則遞進式的跟進訊息。不是催促，而是讓她覺得你還記得她、在乎她。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「🔄 未成交跟進話術」專案</li>
+          <li>告訴它體驗諮詢的狀況、她最後說的話、過了多久</li>
+          <li>它給你情況判斷 + 三則跟進訊息</li>
+          <li>依照建議的時機，一則一則發出去</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">你需要告訴它的資訊</div>
+        <ul class="usage-list">
+          <li>體驗諮詢大概談了什麼方向</li>
+          <li>她最後說了什麼（「考慮看看」/「先看看」/ 直接沒回）</li>
+          <li>距離諮詢已經過了多久</li>
+          <li>你們之後有沒有其他互動</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>第一則跟進絕對不提服務，先讓她想起你這個人</li>
+          <li>三則不要連著發，間隔 3–5 天</li>
+          <li>三則都發了還是沒回，就先放著，她有需要的時候會回來</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          如果她當時說的是「太貴了」，直接告訴 Claude：<br>
+          <strong>「她提到價格有點高，跟進的時候不要再提價格，先讓她感受到價值」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案七 -->
+  <div class="project-block" id="p7">
+    <div class="project-header">
+      <div class="project-icon">💰</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 07</div>
+        <div class="project-name">產品設計與定價</div>
+        <div class="project-tagline">從低單價體驗到高單價包套，把你的服務變成產品線</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>幫你設計完整的服務產品線，規劃每個方案的內容、定價邏輯、適合的人，以及銷售話術。讓你的服務不只是「我有在接單」，而是有清楚架構的產品組合。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">產品線三層邏輯</div>
+        <div class="flow-row">
+          <span class="flow-tag">低單價體驗</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">中單價服務</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">高單價包套陪跑</span>
+        </div>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">你可以這樣說</div>
+        <ul class="usage-list">
+          <li>「幫我設計完整的三層產品線」</li>
+          <li>「幫我設計一個低單價的體驗諮詢，讓她願意試試看」</li>
+          <li>「我的高單價方案要包含什麼，才讓人覺得值」</li>
+          <li>「幫我寫這個方案的銷售說明文字」</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>低單價不是用來賺錢的，是用來讓她體驗你、信任你</li>
+          <li>高單價方案要說「她能得到什麼改變」，不要說「包含幾次諮詢幾個小時」</li>
+        </ul>
+        <div class="warn-box">定價不要只看同業收多少，要先想清楚你的時間成本和你能給的價值。</div>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          想讓方案設計更貼近你：<br>
+          <strong>「我的客群大多是上班族，時間比較零散，方案要能配合她們的節奏來設計」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案八 -->
+  <div class="project-block" id="p8">
+    <div class="project-header">
+      <div class="project-icon">📋</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 08</div>
+        <div class="project-name">個案服務排程表</div>
+        <div class="project-tagline">讓每一位客戶都感受到高價值陪跑的服務 SOP</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>幫你規劃每一位客戶的服務節奏，包含完整陪跑 SOP、單次諮詢規劃、諮詢後的跟進訊息，以及客戶卡關時的應對方向。讓你的高單價服務有結構、有溫度。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">四種使用模式</div>
+        <ul class="usage-list">
+          <li>設計服務 SOP：幫你規劃整個陪跑方案的月週節奏</li>
+          <li>單次諮詢規劃：這次要談什麼、推進到哪裡</li>
+          <li>諮詢後跟進：諮詢結束後的跟進訊息，讓她覺得被照顧到</li>
+          <li>客戶卡關處理：客戶停滯不前，幫你想下一步</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟（以諮詢後跟進為例）</div>
+        <ol class="steps-mini">
+          <li>進入「📋 個案服務排程表」專案</li>
+          <li>說「模式三：諮詢後跟進」</li>
+          <li>告訴它這次諮詢談了什麼、她的狀況和下一步</li>
+          <li>它產出一則跟進訊息，讓她感受到你的用心</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>每次諮詢後都要發跟進訊息，這是建立高價值感最簡單的方式</li>
+          <li>客戶卡關不代表你失敗，有時候是她自己還沒準備好，需要的是陪伴不是催促</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          告訴它這位客戶的個性，讓跟進訊息更精準：<br>
+          <strong>「這位客戶比較容易想太多，跟進訊息要讓她安心，不要給她太多功課」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案九 -->
+  <div class="project-block" id="p9">
+    <div class="project-header">
+      <div class="project-icon">🌱</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 09</div>
+        <div class="project-name">心態建立</div>
+        <div class="project-tagline">沮喪、卡關、想放棄的時候，來這裡說說話</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>這個專案不給建議，它先聽你說。當你覺得撐不下去、不知道自己在幹嘛，來這裡把那個感受說清楚，有時候說清楚了就鬆了。如果你需要，它才一起陪你想下一步。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">什麼時候可以來</div>
+        <ul class="usage-list">
+          <li>發了文但沒有互動，覺得很挫折</li>
+          <li>客戶說考慮然後消失了，心情很差</li>
+          <li>不知道自己到底適不適合做這件事</li>
+          <li>覺得別人都在進步，自己原地踏步</li>
+          <li>想放棄但又不甘心</li>
+          <li>單純需要有人懂你說的那種累</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用方式</div>
+        <p>直接說「我今天很低落」或「我想聊聊」，不需要準備任何東西。它會先問你發生了什麼，陪你把感受說清楚。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>它不會一上來就叫你振作，它會先讓你說完</li>
+          <li>如果它給的方向感覺不對，直接說「我不需要建議，我只是想說說」</li>
+        </ul>
+        <div class="warn-box">這個專案是輔助支持，不能取代真實的人際連結。如果你長期感到很低落，記得也要跟身邊的人說，或尋求專業協助。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 專案十 -->
+  <div class="project-block" id="p10">
+    <div class="project-header">
+      <div class="project-icon">🎬</div>
+      <div class="project-header-text">
+        <div class="project-num">專案 10</div>
+        <div class="project-name">Reels 腳本規劃</div>
+        <div class="project-tagline">從來沒拍過也沒關係，它先問你幾個問題，再幫你寫好腳本</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-section">
+        <div class="project-section-title">這個專案能幫你做什麼</div>
+        <p>這個專案跟其他九個不一樣，它不直接給你模板，而是先跟你對話，問清楚這支影片要達成什麼、對誰說、核心觀點是什麼，再根據你的答案產出量身訂做的腳本。對著鏡頭說話型和文字卡節奏型都支援。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">兩種腳本類型</div>
+        <ul class="usage-list">
+          <li>對著鏡頭說話型：適合分享觀點、說故事、建立個人信任感</li>
+          <li>文字卡節奏型：還不敢出鏡、或想做教學清單型內容時用</li>
+        </ul>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">使用步驟</div>
+        <ol class="steps-mini">
+          <li>進入「🎬 Reels 腳本規劃」專案</li>
+          <li>它會先問你：這支想達成什麼目的</li>
+          <li>回答它的問題（3–4 輪對話）</li>
+          <li>它產出完整腳本 + 拍攝備忘錄 + 發文標題</li>
+          <li>對著腳本練習 1–2 次，準備好了就拍</li>
+        </ol>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">第一次拍的人，從這裡開始</div>
+        <p>進去之後直接說：「我想拍第一支 Reels，但不知道從哪裡開始。」它會問你最近跟客戶說過什麼讓對方很有感的話，用那個當素材，第一支腳本就出來了。</p>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">注意事項</div>
+        <ul class="tips-list">
+          <li>每次只專注在一支影片，不要一次想五支</li>
+          <li>腳本是參考，不是逐字稿，說的時候用自己的話，聽起來才自然</li>
+          <li>第一支不需要完美，拍出來就贏了</li>
+        </ul>
+        <div class="warn-box">不要因為覺得自己不上鏡就一直拖。文字卡型的 Reels 完全不需要出鏡，先從那個開始。</div>
+      </div>
+      <div class="project-section">
+        <div class="project-section-title">可以這樣優化指令</div>
+        <div class="optimize-box">
+          拍完覺得還不夠好：<br>
+          <strong>「開場那句話不夠有力，幫我換三個版本，要讓人在前三秒停下來」</strong><br><br>
+          想做系列影片：<br>
+          <strong>「幫我規劃三支連續的 Reels，主題是感情裡的三種自我保護模式」</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>這十個專案是你的 IG 變現工作系統。<br>
+  不確定怎麼用，或覺得哪個專案的輸出不對，隨時找老師調整。<br><br>
+  <span style="color:var(--accent)">✦</span></p>
+</div>
+
+</body>
+</html>
